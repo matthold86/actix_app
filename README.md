@@ -1,5 +1,6 @@
-# Web Application with Actix
-### Matthew Holden
+# Actix Web Application
+#### *By: Matthew Holden*
+
 
 ### Summary
 
