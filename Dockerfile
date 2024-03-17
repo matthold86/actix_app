@@ -1,4 +1,4 @@
-# Use the official Rust image as the base image
+# First stage: Build the application
 FROM rust:latest as builder
 
 # Set the working directory in the container
@@ -7,20 +7,25 @@ WORKDIR /usr/src/app
 # Copy the source code into the container
 COPY . .
 
-# Build the Rust application
+# Build dependencies
+RUN apt-get update && apt-get install -y libssl-dev && rm -rf /var/lib/apt/lists/*
 RUN cargo build --release
 
-# Use a smaller base image for the final container
+# Copy the source code and build the application
+COPY src ./src
+RUN cargo build --release
+
+# Second stage: Create a smaller image
 FROM debian:buster-slim
 
 # Set the working directory in the container
 WORKDIR /usr/src/app
 
-# Copy the compiled binary from the builder stage to the final image
-COPY --from=builder /usr/src/app/target/release/rust_actix .
+# Copy the compiled binary from the builder stage
+COPY --from=builder /usr/src/app/target/release/actix_app .
 
 # Expose the port on which your Actix web service listens
 EXPOSE 8080
 
 # Command to run the binary when the container starts
-CMD ["./rust_actix"]
+CMD ["./actix_app"]
