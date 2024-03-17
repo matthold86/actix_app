@@ -18,5 +18,10 @@ The only additional crate required as a dependancy is the `actic-web` crate.
 
 ### Application Deployed Locally
 
+First, deploy the application locally to see if the `#[actix_web::main]` macro is properly executing the async main function. We bound the function to local port 8080 so that is where the app will be deployed.
+
+![image](https://github.com/matthold86/actix_app/assets/114833075/b6ba883e-2612-417c-9d7b-5c2e6aac15a9)
+
+
 ![image](https://github.com/matthold86/actix_app/assets/114833075/22c961ff-e689-4cfb-86e9-e3157a84f3df)
 
